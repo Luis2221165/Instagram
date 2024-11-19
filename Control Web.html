@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Control ESP32</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    button {
+      font-size: 20px;
+      padding: 15px 30px;
+      margin: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+  <script>
+    function sendCommand(command) {
+      fetch(`/command?cmd=${command}`)
+      .then(response => {
+        console.log('Comando enviado:', command);
+        return response.text();
+      })
+      .then(data => console.log('Respuesta:', data))
+      .catch(error => console.error('Error:', error));
+    }
+  </script>
+</head>
+<body>
+  <h1>Control del ESP32</h1>
+  <h3>Control de Dirección</h3>
+  <div>
+    <button onclick="sendCommand('U1')">↑</button><br>
+    <button onclick="sendCommand('L1')">←</button>
+    <button onclick="sendCommand('C1')">●</button>
+    <button onclick="sendCommand('R1')">→</button><br>
+    <button onclick="sendCommand('D1')">↓</button>
+  </div>
+
+  <h3>Botones de Función</h3>
+  <div>
+    <button onclick="sendCommand('A1')">Botón A</button>
+    <button onclick="sendCommand('B1')">Botón B</button>
+  </div>
+</body>
+</html>
